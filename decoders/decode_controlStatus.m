@@ -10,8 +10,8 @@ function status_table = decode_controlStatus(T)
         5, 'Export_status', '1: Enabled. 0: Disabled.';
         6, 'Safety_trip_status', '1: Trip active. 0: No trip.';
         7, 'Trip_reset_status', '1: Applied. 0: In-active.';
-        8, 'Battery_status', '00: Idle. 01: Charging. 10: Discharging. 11: BAD (relay open or BMS comm failure).';
-        9, '', ''; % Reserved bit
+        8, 'Battery_status1', '00: Idle. 01: Charging. 10: Discharging. 11: BAD (relay open or BMS comm failure).';
+        9, 'Battery_status2', '00: Idle. 01: Charging. 10: Discharging. 11: BAD (relay open or BMS comm failure).'; % Reserved bit
         10, 'PV_availability', '1: Available. 0: Not available.';
         11, 'Battery_availability', '1: Available. 0: Not available.';
         12, 'Comm_trip_status', '1: Trip active. 0: No trip.';
@@ -39,4 +39,13 @@ function status_table = decode_controlStatus(T)
         row = [i, binary_status(~cellfun(@isempty, bit_info(:, 2)))];
         status_table(i, :) = array2table(row);
     end
+
+    %combine two bits of battery status field
+    v1=status_table.Battery_status1;
+    v2=status_table.Battery_status2;
+    arr=[v1,v2];
+    batt=bin2dec(strcat(string(arr(:,1)),string(arr(:,2))));
+    status_table.Battery_status1=batt;
+    status_table.Battery_status2=[];
+
 end
