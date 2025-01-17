@@ -15,13 +15,13 @@ function reset_events_table = analyze_sisw_uptime(T)
     num_resets = length(reset_indices);
     reset_events_table = table('Size', [num_resets, 3], ...
                                'VariableTypes', {'datetime', 'double', 'string'}, ...
-                               'VariableNames', {'Time', 'Sisw_ut_beforeReset', 'Description'});
+                               'VariableNames', {'Time', 'Sisw_ut_BeforeReset', 'Description'});
 
     % Populate the output table with reset event details
     for i = 1:num_resets
         idx = reset_indices(i); % Index of the reset event
         reset_events_table.Time(i) = time(idx + 1); % Time of the reset event
-        reset_events_table.Sisw_ut_beforeReset(i) = uptime(idx); % Uptime counter value after reset
+        reset_events_table.Sisw_ut_BeforeReset(i) = uptime(idx); % Uptime counter value after reset
         reset_events_table.Description(i) = "SISW_App was reset here.";
     end
 end
