@@ -41,7 +41,8 @@ function status_description_table = decode_status_with_descriptions(bin_array, b
         current_value = bin_array(i);
         
         % Extract the value of the specified bit (bitNo)
-        bit_status = bitget(current_value, bitNo + 1);  % bitget is 1-based
+%         bit_status = ~bitget(current_value, bitNo + 1);  % bitget is 1-based
+        bit_status=current_value;
         
         % Retrieve the status and description for the specified bitNo
         bit_description = bit_info{bitNo + 1, 2};  % +1 because bit_info is 1-based
