@@ -22,7 +22,7 @@ function reset_events_table = analyze_dsp_uptime(T)
         next_value = uptime(idx + 1);
 
         % Check if the reset is unexpected
-        if ~(uptime(idx) == 6553 && next_value == 0)
+        if ~(uptime(idx) == 6553 && next_value == 0 || uptime(idx) == 6552 && next_value == 0)
             % Add unexpected reset details to the output table
             new_row = {time(idx + 1), uptime(idx), "Unexpected DSP reset occurred."};
             reset_events_table = [reset_events_table; new_row]; %#ok<AGROW>
